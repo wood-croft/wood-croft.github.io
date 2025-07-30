@@ -1,36 +1,65 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  max-height: 100%;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #1e1e1e;
-  color: #f0f0f0;
+  color: #e0e0e0;
   display: flex;
   margin: 0;
-  padding: 2rem;
+  padding: 0;
   scroll-behavior: smooth;
+}
+
+.layout {
+  flex: 1;
+  margin: 3rem 0 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 1600px;
+  max-height: 100%;
+}
+
+.page-wrapper {
+  flex: 1;
+  overflow: hidden;
+  margin-left: 200px;
+  padding: 0;
+  transition: margin-left 0.3s ease;
+}
+.page-wrapper.collapsed {
+  margin-left: 0;
 }
 
 main {
   flex: 1;
-  padding: 2rem;
+  padding: 1rem;
 }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  color: #ffffff;
-}
 
 .sidebar {
+  position: fixed;
   width: 200px;
   background-color: #1e1e1e;
-  padding: 0.25rem;
+  padding: 4rem 0.25rem;
   height: 100vh;
-  position: sticky;
   top: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   border-right: 1px solid #333;
+  /*transition: width 0.3s ease;*/
+}
+.sidebar.collapsed {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: none;
 }
 .sidebar nav ul {
   list-style: none;
@@ -52,6 +81,36 @@ h1 {
 .sidebar ul ul {
   padding-left: 0.5rem;
   margin-top: 0.25rem;
+}
+
+.toggle-button {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.75rem;
+  z-index: 1000;
+  background: #333;
+  color: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 0;
+  color: #ffffff;
+  text-shadow:
+    -1px -1px 0 #000,
+    -1px  0px 0 #000,
+    -1px  1px 0 #000,
+     0px -1px 0 #000,
+     0px  1px 0 #000,
+     1px -1px 0 #000,
+     1px  0px 0 #000,
+     1px  1px 0 #000;
 }
 
 section {
@@ -116,7 +175,7 @@ section h2 {
   margin: 0 0 0.25rem;
 }
 .links {
-  /*list-style: none;*/
+  font-size: 1rem;
   padding: 0;
   padding-top: 1rem;
   margin: 0 1rem 0;
@@ -127,11 +186,13 @@ section h2 {
 .links a {
   color: #66d9ef;
   text-decoration: none;
+  word-break: break-all;
 }
 .links a:hover {
   text-decoration: underline;
 }
-@media (max-width: 700px) {
+
+@media (max-width: 900px) {
   .entry {
     flex-direction: column;
     align-items: center;
@@ -139,5 +200,48 @@ section h2 {
   }
   .thumbnail-link {
     margin: 0 0 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .page-wrapper {
+    overflow: auto;
+    margin-left: 0;
+    padding: 0;
+  }
+  .sidebar {
+    position: fixed;
+    height: 100%;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    overflow: auto;
+  }
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    width: 200px;
+    padding: 1rem;
+    overflow: hidden;
+  }
+  .layout {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: calc(2.5rem * 0.75);
+  }
+  section h2 {
+    font-size: calc(1.75rem * 0.75);
+  }
+  .card-title {
+    font-size: calc(1.5rem * 0.75);
+  }
+  .card-subtitle {
+    font-size: calc(1.25rem * 0.75);
+  }
+  .links {
+    font-size: calc(1rem * 0.75);
   }
 }
